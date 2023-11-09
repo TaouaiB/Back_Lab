@@ -2,7 +2,6 @@ const express = require("express");
 const connectToDb = require("./Config/connectToDb");
 
 const xss = require("xss-clean"); // Middleware to prevent XSS attacks
-const rateLimiting = require("express-rate-limit"); // Middleware to restrict site usage
 const helmet = require("helmet"); // Middleware Security Headers
 const hpp = require("hpp"); // Middleware Prevent Http Param Pollution
 
@@ -22,12 +21,6 @@ app.use(express.json());
 // Prevent XSS (Cross Site Scripting) Attacks
 // Should be ALWAYS above Routes !!!
 app.use(xss());
-
-// Rate Limiting
-app.use(rateLimiting({
-  windowMS: 10 * 60 * 1000, // 10 minutes
-  max: 200, // every user can only send 200 requests per 10 min
-}))
 
 // Security Headers ( Helmet )
 // Add Security Headers to Response
